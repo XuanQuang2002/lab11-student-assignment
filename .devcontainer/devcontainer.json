@@ -1,0 +1,30 @@
+{
+  "name": "Airflow Dev Environment",
+  "dockerComposeFile": [
+    "../docker-compose.yml",
+    "docker-compose.devcontainer.yml"
+  ],
+  "service": "airflow-webserver",
+  "runServices": ["postgres", "airflow-webserver", "airflow-scheduler"],
+  "workspaceFolder": "/workspace",
+  "remoteUser": "airflow",
+  "updateRemoteUserUID": false,
+  "shutdownAction": "none",
+
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/home/airflow/.local/bin/python",
+        "python.analysis.typeCheckingMode": "basic",
+        "python.analysis.exclude": ["**/.venv/**", "**/logs/**"]
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "njpwerner.autodocstring"
+      ]
+    }
+  },
+
+  "postCreateCommand": "python -c \"import sys, airflow; from airflow.providers.postgres.operators.postgres import PostgresOperator; import faker, requests; print(sys.executable); print('Airflow', airflow.__version__)\""
+}

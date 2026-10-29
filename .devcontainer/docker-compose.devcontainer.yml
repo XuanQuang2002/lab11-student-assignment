@@ -1,0 +1,5 @@
+services:
+  airflow-webserver:
+    volumes:
+      # Compose resolves this path relative to the root docker-compose.yml.
+      - .:/workspace:cached
